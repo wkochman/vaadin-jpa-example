@@ -9,6 +9,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import eu.sii.pl.domain.model.Service;
 import eu.sii.pl.domain.model.User;
 import eu.sii.pl.domain.utils.DBUtils;
 
@@ -25,13 +26,14 @@ public class MyVaadinUI extends UI
         layout.setMargin(true);
         setContent(layout);
         final JPAContainer<User> container = DBUtils.getUsersContainer();
-        Table table = new Table(null, container);
+        final JPAContainer<Service> sContainer = DBUtils.getServiceContainer();
+        Table table = new Table(null, sContainer);
         table.setSelectable(true);
         Button button = new Button("Populate");
         button.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {
                 DBUtils.populate();
-                container.refresh();
+                sContainer.refresh();
                 Notification.show("Data populated", Notification.Type.TRAY_NOTIFICATION);
             }
         });

@@ -2,7 +2,6 @@ package eu.sii.pl.domain.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,11 +11,8 @@ import javax.persistence.Table;
 public class User {
     @Id
     private Long id;
-    @Column
     private String name;
-    @Column
     private String lastName;
-    @Column
     private Date birthday;
     public Long getId() {
         return id;
@@ -41,6 +37,10 @@ public class User {
     }
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+    @Override
+    public String toString() {
+        return new StringBuilder().append(name).append(" ").append(lastName).toString();
     }
     
 }
