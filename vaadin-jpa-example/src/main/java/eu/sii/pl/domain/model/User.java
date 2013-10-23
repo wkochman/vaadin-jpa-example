@@ -3,13 +3,21 @@ package eu.sii.pl.domain.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import org.hibernate.envers.Audited;
 
 @Entity
+@Audited
 @Table(name="users")
 public class User {
+    @TableGenerator(name = "U_Gen", table = "ID_GEN_U", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", initialValue = 1, allocationSize = 1)
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "U_Gen")
     private Long id;
     private String name;
     private String lastName;

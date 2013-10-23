@@ -24,22 +24,21 @@ public class DBUtils {
     public static JPAContainer<Service> getServiceContainer() {
         JPAContainer<Service> services = new JPAContainer<Service>(Service.class);
         services.setEntityProvider(new CachingMutableLocalEntityProvider<Service>(Service.class, getEntityManager()));
+        services.setAutoCommit(true);
         return services;
     }
 
     public static void populate() {
         EntityManager entityManager = getEntityManager();
         entityManager.getTransaction().begin();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 20; i++) {
             User u = new User();
-            u.setId(Long.valueOf(i));
             u.setName("service_" + i);
             u.setLastName("l_name_" + i);
             u.setBirthday(new Date());
             entityManager.persist(u);
             
             Service s = new Service();
-            s.setId(Long.valueOf(i));
             s.setName("service_"+i);
             s.setStartDate(new Date());
             s.setSalesPerson(u);
